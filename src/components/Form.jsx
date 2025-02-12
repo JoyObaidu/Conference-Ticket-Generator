@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { formSchema } from '../utils/validationSchema';
-import { saveToStorage, getFromStorage } from '../utils/storage';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { formSchema } from "../utils/validationSchema";
+import { saveToStorage, getFromStorage } from "../utils/storage";
+import PropTypes from "prop-types";
+
 
 const CLOUD_NAME = "dgatpyppe";
-const UPLOAD_PRESET = "your_upload_preset"; // Replace with your actual Cloudinary upload preset
+const UPLOAD_PRESET = "ml_default";
 
 const Form = ({ setTicket }) => {
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
     trigger,
     formState: { errors },
   } = useForm({
@@ -31,7 +32,6 @@ const Form = ({ setTicket }) => {
     }
   }, [setValue]);
 
-  // ✅ Cloudinary Upload Widget
   const openUploadWidget = () => {
     if (!window.cloudinary) {
       console.error("Cloudinary script not loaded.");
@@ -50,17 +50,16 @@ const Form = ({ setTicket }) => {
       (error, result) => {
         if (!error && result.event === "success") {
           const uploadedUrl = result.info.secure_url;
-          console.log("Uploaded Image URL:", uploadedUrl); // Debugging output
-          setAvatarUrl(uploadedUrl); // ✅ Updates state
-          setValue("avatar", uploadedUrl, { shouldValidate: true }); // ✅ Updates form and triggers validation
-          trigger("avatar"); // ✅ Forces re-validation
+          setAvatarUrl(uploadedUrl);
+          setValue("avatar", uploadedUrl, { shouldValidate: true });
+          trigger("avatar");
         } else if (error) {
           console.error("Cloudinary Upload Error:", error);
         }
       }
     );
 
-    widget.open(); // Opens the Cloudinary Upload Widget
+    widget.open();
   };
 
   const onSubmit = (data) => {
@@ -69,19 +68,17 @@ const Form = ({ setTicket }) => {
   };
 
   return (
-    <div className="text-white bg-purple-950 shadow-lg rounded-lg p-8 max-w-md mx-auto">
-      {/* Header */}
+    <div className="text-white bg-purple-950 shadow-lg rounded-lg p-6 max-w-lg mx-auto w-full sm:w-1/2 md:w-2/3 lg:w-3/4">
       <header className="text-center">
         <h2 className="text-xl font-bold mb-2">
           Your Journey to Coding Conference 2025 Starts Here
         </h2>
-        <img src="/logo-full.svg" alt="logo" className="mx-auto w-24 mb-2" />
-        <p className="text-gray-300">Secure your spot at the biggest conference</p>
+        <p className="text-gray-300">
+          Secure your spot at the biggest conference
+        </p>
       </header>
 
-      {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
-        {/* ✅ Image Upload */}
         <div>
           <label className="block text-sm font-medium">Upload Avatar</label>
           <button
@@ -96,21 +93,16 @@ const Form = ({ setTicket }) => {
             <img
               src={avatarUrl}
               alt="Uploaded Avatar"
-              className="w-24 h-24 rounded-full mt-2 object-cover"
+              className="w-24 h-24 rounded-full mt-2 object-cover mx-auto"
             />
           )}
 
-          {/* ✅ Hidden Input for Avatar URL */}
-          <input
-            type="hidden"
-            {...register("avatar")}
-            value={avatarUrl}
-          />
-
-          {errors.avatar && <p className="text-red-500 text-sm">{errors.avatar.message}</p>}
+          <input type="hidden" {...register("avatar")} value={avatarUrl} />
+          {errors.avatar && (
+            <p className="text-red-500 text-sm">{errors.avatar.message}</p>
+          )}
         </div>
 
-        {/* Name Input */}
         <div>
           <label className="block text-sm font-medium">Full Name</label>
           <input
@@ -119,10 +111,11 @@ const Form = ({ setTicket }) => {
             placeholder="Enter your full name"
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
-          {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
+          {errors.fullName && (
+            <p className="text-red-500 text-sm">{errors.fullName.message}</p>
+          )}
         </div>
 
-        {/* Email Input */}
         <div>
           <label className="block text-sm font-medium">Email Address</label>
           <input
@@ -131,10 +124,11 @@ const Form = ({ setTicket }) => {
             placeholder="Enter your email"
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
         </div>
 
-        {/* GitHub Username */}
         <div>
           <label className="block text-sm font-medium">GitHub Username</label>
           <input
@@ -144,11 +138,12 @@ const Form = ({ setTicket }) => {
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           {errors.githubUserName && (
-            <p className="text-red-500 text-sm">{errors.githubUserName.message}</p>
+            <p className="text-red-500 text-sm">
+              {errors.githubUserName.message}
+            </p>
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 rounded transition duration-300"
@@ -158,6 +153,10 @@ const Form = ({ setTicket }) => {
       </form>
     </div>
   );
+};
+
+Form.propTypes = {
+  setTicket: PropTypes.func.isRequired, // ✅ This ensures prop validation
 };
 
 export default Form;
