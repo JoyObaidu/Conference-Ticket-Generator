@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTicket } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 const Ticket = ({ data, reset }) => {
@@ -5,7 +7,9 @@ const Ticket = ({ data, reset }) => {
 
   return (
     <div className="bg-white text-black p-6 rounded-lg shadow-lg mt-4 text-center w-full mx-auto">
-      <h2 className="text-2xl font-bold">🎟 Your Conference Ticket</h2>
+      <h2 className="text-2xl font-bold">
+      <FontAwesomeIcon icon={faTicket} />
+        Your Conference Ticket</h2>
 
       <div className="mt-4 flex flex-col items-center">
         {data.avatar && (

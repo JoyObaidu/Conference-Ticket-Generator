@@ -4,11 +4,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "../utils/validationSchema";
 import { saveToStorage, getFromStorage } from "../utils/storage";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 
 
+// Data gotten from cloudinary
 const CLOUD_NAME = "dgatpyppe";
 const UPLOAD_PRESET = "ml_default";
 
+// form Validation
 const Form = ({ setTicket }) => {
   const {
     register,
@@ -69,11 +73,11 @@ const Form = ({ setTicket }) => {
 
   return (
     <div className="text-white bg-purple-950 shadow-lg rounded-lg p-6 max-w-lg mx-auto w-full sm:w-1/2 md:w-2/3 lg:w-3/4">
-      <header className="text-center">
-        <h2 className="text-xl font-bold mb-2">
+      <header className="text-center mb-6">
+        <h2 className="text-xl font-bold mb-3">
           Your Journey to Coding Conference 2025 Starts Here
         </h2>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Secure your spot at the biggest conference
         </p>
       </header>
@@ -86,13 +90,14 @@ const Form = ({ setTicket }) => {
             onClick={openUploadWidget}
             className="w-full mb-2 py-6 bg-white hover:text-purple-500 text-black font-bold rounded transition duration-300"
           >
+            <FontAwesomeIcon icon={faUser} className="mr-2"/>
             Upload Image
           </button>
 
           {avatarUrl && (
             <img
               src={avatarUrl}
-              alt="Uploaded Avatar"
+              alt="Attendee Avatar"
               className="w-24 h-24 rounded-full mt-2 object-cover mx-auto"
             />
           )}
@@ -104,7 +109,9 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium justify-self-start">Full Name</label>
+          <label className="block text-sm font-medium justify-self-start mb-2">
+          <FontAwesomeIcon icon={faUser} className="mr-2"/>
+            Full Name</label>
           <input
             {...register("fullName")}
             type="text"
@@ -117,7 +124,10 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium justify-self-start">Email Address</label>
+          <label className="block text-sm font-medium justify-self-start mb-2">
+           <FontAwesomeIcon icon={faEnvelope} className="mr-2"/>
+            Email Address
+          </label>
           <input
             type="email"
             {...register("email")}
@@ -130,7 +140,8 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium justify-self-start">GitHub Username</label>
+          <label className="block text-sm font-medium justify-self-start mb-2">
+            GitHub Username</label>
           <input
             {...register("githubUserName")}
             type="text"
