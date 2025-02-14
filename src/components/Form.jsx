@@ -80,11 +80,11 @@ const Form = ({ setTicket }) => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
         <div>
-          <label className="block text-sm font-medium">Upload Avatar</label>
+          <label className="block text-sm font-medium mb-2 justify-self-start">Upload Avatar</label>
           <button
             type="button"
             onClick={openUploadWidget}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition duration-300"
+            className="w-full mb-2 py-6 bg-white hover:text-purple-500 text-black font-bold rounded transition duration-300"
           >
             Upload Image
           </button>
@@ -104,12 +104,12 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Full Name</label>
+          <label className="block text-sm font-medium justify-self-start">Full Name</label>
           <input
             {...register("fullName")}
             type="text"
-            placeholder="Enter your full name"
-            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="e.g Joy Obaidu"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
           {errors.fullName && (
             <p className="text-red-500 text-sm">{errors.fullName.message}</p>
@@ -117,12 +117,12 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Email Address</label>
+          <label className="block text-sm font-medium justify-self-start">Email Address</label>
           <input
             type="email"
             {...register("email")}
-            placeholder="Enter your email"
-            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="e.g joyobaidu@gmail.com"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -130,12 +130,12 @@ const Form = ({ setTicket }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">GitHub Username</label>
+          <label className="block text-sm font-medium justify-self-start">GitHub Username</label>
           <input
             {...register("githubUserName")}
             type="text"
-            placeholder="Enter your GitHub username"
-            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="e.g Joy Obaidu"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
           {errors.githubUserName && (
             <p className="text-red-500 text-sm">
@@ -146,7 +146,7 @@ const Form = ({ setTicket }) => {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 rounded transition duration-300"
+          className="w-full bg-black text-white hover:bg-purple-400 font-bold py-2 rounded transition duration-300"
         >
           Submit
         </button>
